@@ -7,8 +7,8 @@ def detectCycle(G,visited,parent,startVertex,parentIndex):
 		elif(visited[i]==True and parent[startVertex]!=i):
 			print("Cycle exists")
 			exit(0)
-	print("Cycle does not exist")
-	exit(0)
+	
+	# exit(0)
 def main():
 	G = []
 	file = open('cycle.txt','r')
@@ -24,7 +24,12 @@ def main():
 		G.append(adjList)
 	visited = [False]*len(G)
 	parent = [-1]*len(G)
-	detectCycle(G,visited,parent,0,-1) 
+	for v in range(0,len(G)):
+		if visited[v]==False:
+			detectCycle(G,visited,parent,v,-1)
+
+	 
+	print("Cycle does not exist")
 	
 
 if(__name__=='__main__'):
