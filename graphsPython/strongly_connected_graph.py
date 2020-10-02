@@ -1,11 +1,13 @@
 time = 0
+num_vertices = 0
 def isScc(G,visited,startTime,parent,endTime,startVertex):
 	global time
+	global num_vertices
 	visited[startVertex] = True
 	startTime[startVertex] = time
 	tempTime = time
 	time = time + 1
-
+	num_vertices+=1
 	for adjVertex in G[startVertex]:
 		if(not visited[adjVertex]):
 			tempTime = min(tempTime,isScc(G,visited,startTime,parent,endTime,adjVertex))
@@ -24,6 +26,7 @@ def isScc(G,visited,startTime,parent,endTime,startVertex):
 
 def main():
 	G = []
+	global num_vertices
 	file = open('inputNotStronglyConnect.txt','r')
 	for line in file:
 		line = line.strip()
@@ -41,6 +44,8 @@ def main():
 	parent = [-1]*len(G)
 	endTime = [-1]*len(G)
 	isScc(G,visited,startTime,parent,endTime,0)
+	if num_vertices!=len(G):
+		print("Graph is not connected!!")
 	print(startTime)
 	print(endTime)
 	print("Strongly connected graph")
